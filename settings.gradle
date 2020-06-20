@@ -1,0 +1,3 @@
+rootProject.name='Where2Eat'
+include ':app'
+include ':takeaway-sdk'

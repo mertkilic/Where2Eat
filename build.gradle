@@ -1,0 +1,128 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.3.71'
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        
+    }
+}
+
+// Versions
+ext.ver = [
+    // Android X Libraries
+    appCompat      : '1.0.2',
+    coreKtx        : '1.0.2',
+    constraintLayout : '1.1.3',
+    recyclerView : '1.0.0',
+    material         : '1.0.0',
+
+    // Networking
+    okhttp         : '3.11.0',
+    retrofit       : '2.4.0',
+    moshi          : '1.6.0',
+    kotlinxCoroutines : '1.3.6',
+
+    //Persistence
+    room           : '2.2.5',
+
+    // UI
+    picasso        : '2.71828',
+
+    kotlin         : '$kotlin_version',
+
+    // Log
+    timber         : '4.7.1',
+
+    // DI
+    dagger         : '2.18',
+
+    // required for annotation processing libs (e.g. Dagger) to work correctly with Kotlin
+    javaxAnnotation: '10.0-b28',
+
+    // Testing
+    junit                    : '4.12',
+    annotation               : '1.0.0',
+    extJunit                 : '1.1.0',
+    mockitoKotlin            : '1.6.0',
+    mockitoInline            : '3.3.3',
+    espressoCore             : '3.1.1',
+    espressoContrib          : '3.1.1',
+    espressoIntents          : '3.1.1',
+    espressoIdlingResource   : '3.1.1',
+    okhttpIdling             : '1.0.0',
+    testRunner        : '1.1.1',
+]
+
+//Dependencies
+ext.deps = [
+    // Android X Libraries
+    androidX              : ["androidx.core:core-ktx:$ver.coreKtx",
+                             "androidx.appcompat:appcompat:$ver.appCompat",
+                             "com.google.android.material:material:$ver.material",
+                             "androidx.constraintlayout:constraintlayout:$ver.constraintLayout"],
+
+    // UI
+    picasso               : "com.squareup.picasso:picasso:$ver.picasso",
+
+    kotlin                : "org.jetbrains.kotlin:kotlin-stdlib:$ver.kotlin",
+
+    // Persistence
+    room                  : ["androidx.room:room-runtime:$ver.room",
+                             "androidx.room:room-ktx:$ver.room"],
+    roomCompiler          : "androidx.room:room-compiler:$ver.room",
+    roomTesting           : "androidx.room:room-testing:$ver.room",
+
+    //Android X Test Libraries
+    androidXtest          : ["androidx.annotation:annotation:$ver.annotation",
+                             "androidx.test.espresso:espresso-core:$ver.espressoCore",
+                             "androidx.test.espresso:espresso-intents:$ver.espressoIntents",
+                             "androidx.test.espresso:espresso-idling-resource:$ver.espressoIdlingResource",
+                             "androidx.test.espresso:espresso-contrib:$ver.espressoContrib",
+                             "androidx.test:runner:$ver.testRunner",
+                             "androidx.test.ext:junit:$ver.extJunit"],
+    // Testing
+    junit                 : "junit:junit:$ver.junit",
+    mockitoKotlin         : ["com.nhaarman:mockito-kotlin:$ver.mockitoKotlin",
+                             "org.mockito:mockito-inline:$ver.mockitoInline"],
+    okhttpIdling          : "com.jakewharton.espresso:okhttp3-idling-resource:$ver.okhttpIdling@aar",
+
+    // Networking
+    okhttp                : ["com.squareup.okhttp3:okhttp:$ver.okhttp",
+                             "com.squareup.okhttp3:logging-interceptor:$ver.okhttp"],
+    retrofit              : ["com.squareup.retrofit2:retrofit:$ver.retrofit@jar",
+                             "com.squareup.retrofit2:converter-moshi:$ver.retrofit"],
+    moshi                 : "com.squareup.moshi:moshi:$ver.moshi",
+    kotlinCoroutines      : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$ver.kotlinCoroutines",
+
+    // Dagger 2
+    dagger                : "com.google.dagger:dagger:$ver.dagger",
+    daggercompiler        : "com.google.dagger:dagger-compiler:$ver.dagger",
+    daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:$ver.dagger",
+    daggerAndroidSupport  : "com.google.dagger:dagger-android-support:$ver.dagger",
+
+    // Log
+    timber                : "com.jakewharton.timber:timber:$ver.timber",
+
+    javaxAnnotation       : "org.glassfish:javax.annotation:$ver.javaxAnnotation"
+]
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
