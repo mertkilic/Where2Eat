@@ -28,6 +28,7 @@ android {
 
 dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation project(path: ':takeaway-sdk')
 
   implementation deps.androidX
   implementation deps.kotlin
