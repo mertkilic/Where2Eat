@@ -1,4 +1,4 @@
-package com.mertkilic.where2eat.domain
+package com.mertkilic.where2eat.features.restaurantlist.data
 
 import com.mertkilic.takeaway_sdk.model.SortingValuesResponse
 

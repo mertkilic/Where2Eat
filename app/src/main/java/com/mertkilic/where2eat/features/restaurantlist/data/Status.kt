@@ -1,4 +1,4 @@
-package com.mertkilic.where2eat.domain
+package com.mertkilic.where2eat.features.restaurantlist.data
 
 enum class Status(val value: String) {
   OPEN("open"),
