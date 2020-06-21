@@ -24,6 +24,15 @@ allprojects {
     }
 }
 
+ext {
+    minSdkVersion = 21
+    targetSdkVersion = 29
+    compileSdkVersion = 29
+    buildToolsVersion = "29.0.3"
+    sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+    targetCompatibilityVersion = JavaVersion.VERSION_1_8
+}
+
 // Versions
 ext.ver = [
     // Android X Libraries
