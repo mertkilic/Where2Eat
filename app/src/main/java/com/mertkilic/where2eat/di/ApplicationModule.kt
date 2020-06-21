@@ -12,9 +12,13 @@ open class ApplicationModule(private val application: Where2EatApp) {
 
   @Provides fun applicationContext(): Context = application.applicationContext
 
-  @Provides fun database(applicationContext: Context): TakeawayDatabase =
+  @Provides
+  fun database(applicationContext: Context): TakeawayDatabase =
     Room.databaseBuilder(
       applicationContext,
       TakeawayDatabase::class.java, "ta-database"
     ).build()
+
+  @Provides
+  fun restaurantDao(database: TakeawayDatabase) = database.restaurantDao()
 }
