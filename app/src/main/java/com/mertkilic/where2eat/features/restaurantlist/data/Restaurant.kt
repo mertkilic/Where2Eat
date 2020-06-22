@@ -15,7 +15,7 @@ data class Restaurant(
 ){
   constructor(restaurantResponse: RestaurantResponse):this(
     name = restaurantResponse.name?:"",
-    status = Status.fromString(restaurantResponse.status),
+    status = Status.fromString(restaurantResponse.status?.decapitalize() ?: ""),
     sortingValues = SortingValues(
       restaurantResponse.sortingValues
     )

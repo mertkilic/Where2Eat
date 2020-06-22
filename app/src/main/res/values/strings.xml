@@ -1,3 +1,4 @@
 <resources>
   <string name="app_name">Where2Eat</string>
+  <string name="restaurant_list_filter_hint">Filter by restaurant name</string>
 </resources>
