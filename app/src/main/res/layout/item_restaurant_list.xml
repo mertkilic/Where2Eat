@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginTop="16dp"
+  app:cardBackgroundColor="@android:color/white"
+  app:cardCornerRadius="4dp">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="8dp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/restaurantNameTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:textSize="18sp"
+      android:textStyle="bold"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="Pizza Heart" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/statusTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:layout_marginBottom="16dp"
+      android:textStyle="bold"
+      android:textSize="12sp"
+      app:layout_constraintStart_toStartOf="@+id/restaurantNameTextView"
+      app:layout_constraintTop_toBottomOf="@+id/restaurantNameTextView"
+      app:layout_constraintBottom_toBottomOf="parent"
+      tools:text="Open" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+      android:id="@+id/sortingValueTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="4dp"
+      android:textColor="@color/text_hint"
+      android:textSize="12sp"
+      android:layout_marginStart="16dp"
+      app:layout_constraintStart_toEndOf="@+id/statusTextView"
+      app:layout_constraintBottom_toBottomOf="@+id/statusTextView"
+      tools:text="Average rating : 4.5" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+      android:id="@+id/favoriteButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:button="@drawable/selector_favorite"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
