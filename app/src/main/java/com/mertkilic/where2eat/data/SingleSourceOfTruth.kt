@@ -3,6 +3,7 @@ package com.mertkilic.where2eat.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import kotlinx.coroutines.Dispatchers
 
 /**
@@ -13,15 +14,22 @@ import kotlinx.coroutines.Dispatchers
  * [Result.Status.ERROR] - if error has occurred from any source
  * [Result.Status.LOADING]
  */
-//TODO add database call later
-fun <T> resultLiveData(networkCall: suspend () -> Result<T>): LiveData<Result<T>> =
+fun <T, A> resultLiveData(
+  databaseQuery: () -> LiveData<T>,
+  networkCall: suspend () -> Result<A>,
+  saveCallResult: suspend (A) -> Unit
+): LiveData<Result<T>> =
   liveData(Dispatchers.IO) {
     emit(Result.loading<T>())
 
+    val source = databaseQuery().map { Result.success(it) }
+    emitSource(source)
+
     val responseStatus = networkCall()
     if (responseStatus.status == Result.Status.SUCCESS) {
-      emitSource(MutableLiveData(responseStatus))
+      saveCallResult(responseStatus.data!!)
     } else if (responseStatus.status == Result.Status.ERROR) {
-      emitSource(MutableLiveData(responseStatus))
+      emit(Result.error<T>(responseStatus.message!!))
+      emitSource(source)
     }
   }

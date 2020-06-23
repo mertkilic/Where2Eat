@@ -11,13 +11,15 @@ data class Restaurant(
   val name: String,
   val status: Status,
   @Embedded
-  val sortingValues: SortingValues
-){
-  constructor(restaurantResponse: RestaurantResponse):this(
-    name = restaurantResponse.name?:"",
-    status = Status.fromString(restaurantResponse.status?.decapitalize() ?: ""),
+  val sortingValues: SortingValues,
+  var isFavorite: Boolean
+) {
+  constructor(restaurantResponse: RestaurantResponse) : this(
+    name = restaurantResponse.name ?: "",
+    status = Status.fromString(restaurantResponse.status ?: ""),
     sortingValues = SortingValues(
       restaurantResponse.sortingValues
-    )
+    ),
+    isFavorite = false
   )
 }
