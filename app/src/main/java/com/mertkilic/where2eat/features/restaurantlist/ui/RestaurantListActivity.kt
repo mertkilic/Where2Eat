@@ -10,7 +10,7 @@ import com.mertkilic.where2eat.data.Result
 import com.mertkilic.where2eat.databinding.ActivityRestaurantListBinding
 import javax.inject.Inject
 
-class RestaurantListActivity : BaseActivity() {
+class RestaurantListActivity : BaseActivity(), RestaurantFavouriteListener {
 
   @Inject lateinit var viewModel: RestaurantListViewModel
 
@@ -20,9 +20,7 @@ class RestaurantListActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     binding = DataBindingUtil.setContentView(this, R.layout.activity_restaurant_list)
-    adapter = RestaurantListAdapter {
-      //TODO implement restaurant add to favourite feature
-    }
+    adapter = RestaurantListAdapter(this)
     binding.restaurantsRecyclerView.adapter = adapter
     subscribeUI()
   }
@@ -33,11 +31,19 @@ class RestaurantListActivity : BaseActivity() {
         Result.Status.LOADING -> binding.swipeRefreshLayout.isRefreshing = true
         Result.Status.SUCCESS -> {
           binding.swipeRefreshLayout.isRefreshing = false
-          adapter.submitList(result.data?.restaurants)
+          adapter.submitList(result.data)
         }
         Result.Status.ERROR -> Log.d("ERROR", "ERROR")//TODO show snack bar error message
 
       }
     })
+  }
+
+  override fun onAddedToFavorites(restaurantName: String) {
+    viewModel.addToFavorites(restaurantName)
+  }
+
+  override fun onrRemovedFromFavorites(restaurantName: String) {
+    viewModel.removeFromFavorites(restaurantName)
   }
 }

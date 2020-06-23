@@ -5,7 +5,7 @@ import com.mertkilic.where2eat.data.BaseDataSource
 import com.mertkilic.where2eat.data.Result
 import javax.inject.Inject
 
-class RestaurantListDataSource @Inject constructor(
+class RestaurantNetworkDataSource @Inject constructor(
   private val apiClient: ApiClient
 ) : BaseDataSource() {
 

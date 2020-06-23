@@ -1,21 +1,26 @@
 package com.mertkilic.where2eat.features.restaurantlist.data
 
+import androidx.lifecycle.LiveData
 import javax.inject.Inject
 
 class RestaurantListRepository @Inject constructor(
-  private val dao: RestaurantDao,
-  private val remoteDataSource: RestaurantListDataSource
+  private val localDataSource: RestaurantLocalDataSource,
+  private val remoteDataSource: RestaurantNetworkDataSource
 ) {
 
-  suspend fun observeRestaurantsFromDb(){
-    //TODO fetch restaurants from DB
-  }
+  fun observeRestaurantsFromDb(): LiveData<List<Restaurant>> =
+    localDataSource.getRestaurants()
 
   suspend fun observeRestaurantsFromNetwork() =
     remoteDataSource.fetchRestaurantList()
 
-  fun observeRestaurants(){
-    //TODO implement database first approach
-  }
+  suspend fun saveRestaurants(restaurants: List<Restaurant>) =
+    localDataSource.saveRestaurants(restaurants)
+
+  suspend fun addToFavorites(restaurantName: String) =
+    localDataSource.addToFavorites(Favorite(restaurantName))
+
+  suspend fun removeFromFavorites(restaurantName: String) =
+    localDataSource.removeFromFavorites(Favorite(restaurantName))
 
 }
