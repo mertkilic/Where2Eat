@@ -5,11 +5,11 @@ import com.mertkilic.where2eat.features.restaurantlist.data.Status
 
 class Converters {
 
-  @TypeConverter fun toStatus(statusString: String) =
-    Status.fromString(statusString.split(",").first())
+  @TypeConverter
+  fun toStatus(ordinal: Int) = Status.values()[ordinal]
 
   @ExperimentalStdlibApi
-  @TypeConverter fun toStatusString(status: Status) =
-    "${status.value},${status.resColor}"
+  @TypeConverter
+  fun toStatusInt(status: Status) = status.ordinal
 
 }

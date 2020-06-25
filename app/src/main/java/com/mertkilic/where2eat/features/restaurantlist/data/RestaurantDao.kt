@@ -13,14 +13,14 @@ import com.mertkilic.where2eat.database.BaseDao
 @Dao
 abstract class RestaurantDao : BaseDao<Restaurant>() {
 
-  @Query("SELECT * FROM restaurants")
+  @Query("SELECT * FROM restaurants ORDER BY isFavorite DESC, status ASC")
   abstract fun getAll(): LiveData<List<Restaurant>>
 
   @RawQuery(observedEntities = [Restaurant::class])
   abstract fun findByName(query: SupportSQLiteQuery): LiveData<List<Restaurant>>
 
   @Query("SELECT * FROM favorites")
-  abstract fun getFavorites(): LiveData<List<Favorite>>
+  abstract fun getFavorites(): List<Favorite>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   abstract suspend fun addToFavorites(favourite: Favorite)
