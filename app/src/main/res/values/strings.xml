@@ -1,4 +1,15 @@
 <resources>
   <string name="app_name">Where2Eat</string>
   <string name="restaurant_list_filter_hint">Filter by restaurant name</string>
+
+  <!--Menu-->
+  <string name="menu_select_sort_value">Select Sorting Value</string>
+  <string name="minimum_cost">Minimum Cost</string>
+  <string name="delivery_costs">Delivery Cost</string>
+  <string name="avg_product_price">Average Product Price</string>
+  <string name="popularity">Popularity</string>
+  <string name="distance">Distance</string>
+  <string name="rating_average">Rating Average</string>
+  <string name="newest">Newest</string>
+  <string name="best_match">Best Match</string>
 </resources>

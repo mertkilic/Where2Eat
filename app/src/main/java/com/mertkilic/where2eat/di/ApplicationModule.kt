@@ -3,6 +3,8 @@ package com.mertkilic.where2eat.di
 import android.content.Context
 import androidx.room.Room
 import com.mertkilic.where2eat.Where2EatApp
+import com.mertkilic.where2eat.data.SharedPrefStorage
+import com.mertkilic.where2eat.data.Storage
 import com.mertkilic.where2eat.database.TakeawayDatabase
 import dagger.Module
 import dagger.Provides
@@ -13,6 +15,8 @@ import kotlinx.coroutines.Dispatchers
 open class ApplicationModule(private val application: Where2EatApp) {
 
   @Provides fun applicationContext(): Context = application.applicationContext
+
+  @ApplicationScope @Provides open fun storage(storage: SharedPrefStorage): Storage = storage
 
   @Provides
   fun database(applicationContext: Context): TakeawayDatabase =

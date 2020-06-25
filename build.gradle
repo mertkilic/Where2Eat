@@ -91,7 +91,8 @@ ext.deps = [
                              "androidx.constraintlayout:constraintlayout:$ver.constraintLayout",
                              "androidx.annotation:annotation:$ver.androidxAnnotation",
                              "androidx.lifecycle:lifecycle-viewmodel-ktx:$ver.lifecycle",
-                             "androidx.lifecycle:lifecycle-livedata-ktx:$ver.lifecycle"],
+                             "androidx.lifecycle:lifecycle-livedata-ktx:$ver.lifecycle",
+                             "androidx.lifecycle:lifecycle-runtime-ktx:$ver.lifecycle"],
 
     // UI
     picasso               : "com.squareup.picasso:picasso:$ver.picasso",
