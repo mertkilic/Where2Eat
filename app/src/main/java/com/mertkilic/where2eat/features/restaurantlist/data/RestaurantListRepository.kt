@@ -1,6 +1,8 @@
 package com.mertkilic.where2eat.features.restaurantlist.data
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
+import com.mertkilic.where2eat.data.Result
 import javax.inject.Inject
 
 class RestaurantListRepository @Inject constructor(
@@ -9,7 +11,22 @@ class RestaurantListRepository @Inject constructor(
 ) {
 
   fun observeRestaurantsFromDb(): LiveData<List<Restaurant>> =
-    localDataSource.getRestaurants()
+    localDataSource.getRestaurantsSortedBy()
+
+  fun sortRestaurants(sortType: String): LiveData<Result<List<Restaurant>>> {
+    localDataSource.sortType = sortType
+
+    return observeRestaurantsFromDb().map {
+      Result.success(it)
+    }
+  }
+
+  fun searchRestaurants(query: String) =
+    localDataSource.getRestaurantsSortedBy(query).map {
+      Result.success(it)
+    }
+
+  fun getSelectedSortType() = localDataSource.sortType
 
   suspend fun observeRestaurantsFromNetwork() =
     remoteDataSource.fetchRestaurantList()

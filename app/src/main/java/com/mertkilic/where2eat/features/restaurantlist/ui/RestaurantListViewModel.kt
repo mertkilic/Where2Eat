@@ -2,6 +2,8 @@ package com.mertkilic.where2eat.features.restaurantlist.ui
 
 import android.util.Log
 import androidx.lifecycle.distinctUntilChanged
+import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import com.mertkilic.where2eat.base.BaseViewModel
 import com.mertkilic.where2eat.data.Result
 import com.mertkilic.where2eat.data.resultLiveData
@@ -25,6 +27,31 @@ class RestaurantListViewModel @Inject constructor(
     ).distinctUntilChanged()
   }
 
+  val selectedSortType by lazy {
+    repository.getSelectedSortType()
+  }
+
+  fun sortRestaurants(selectedSortType: String) =
+    liveData(coroutineScope.coroutineContext) {
+      emit(Result.loading())
+      val source = repository.sortRestaurants(selectedSortType)
+      emitSource(source)
+    }
+
+  fun searchRestaurants(query: String) =
+    liveData(coroutineScope.coroutineContext) {
+      emit(Result.loading())
+      val source = repository.searchRestaurants(query)
+      emitSource(source)
+    }
+
+  fun resetView() =
+    liveData(coroutineScope.coroutineContext) {
+      emit(Result.loading())
+      val source = repository.observeRestaurantsFromDb().map { Result.success(it) }
+      emitSource(source)
+    }
+
   fun addToFavorites(restaurantName: String) =
     coroutineScope.launch {
       val result = repository.addToFavorites(restaurantName)
@@ -33,10 +60,9 @@ class RestaurantListViewModel @Inject constructor(
       }
     }
 
-  fun removeFromFavorites(restaurantName: String){
+  fun removeFromFavorites(restaurantName: String) {
     coroutineScope.launch {
       repository.removeFromFavorites(restaurantName)
-      Log.d(TAG, "")
     }
   }
 
