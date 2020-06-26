@@ -70,4 +70,6 @@ dependencies {
   testImplementation deps.junit
   testImplementation deps.mockitoKotlin
   testImplementation deps.roomTesting
+  testImplementation deps.androidXtest
+  testImplementation deps.coroutines_test
 }
