@@ -53,7 +53,7 @@ class RestaurantListAdapter(
           if (isChecked)
             restaurantFavouriteListener.onAddedToFavorites(restaurant.name)
           else
-            restaurantFavouriteListener.onrRemovedFromFavorites(restaurant.name)
+            restaurantFavouriteListener.onRemovedFromFavorites(restaurant.name)
         }
       }
     }

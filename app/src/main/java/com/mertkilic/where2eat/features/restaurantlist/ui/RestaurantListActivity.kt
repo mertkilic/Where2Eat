@@ -31,7 +31,7 @@ class RestaurantListActivity : BaseActivity(), RestaurantFavouriteListener {
         binding.swipeRefreshLayout.isRefreshing = false
         adapter.submitList(result.data)
       }
-      Result.Status.ERROR -> Log.d("ERROR", "ERROR")//TODO show snack bar error message
+      Result.Status.ERROR -> showErrorMessage(result.message!!)
     }
   }
 
@@ -95,7 +95,7 @@ class RestaurantListActivity : BaseActivity(), RestaurantFavouriteListener {
     viewModel.addToFavorites(restaurantName)
   }
 
-  override fun onrRemovedFromFavorites(restaurantName: String) {
+  override fun onRemovedFromFavorites(restaurantName: String) {
     viewModel.removeFromFavorites(restaurantName)
   }
 }
