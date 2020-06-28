@@ -13,8 +13,7 @@ import com.mertkilic.where2eat.features.restaurantlist.data.SortType
 import kotlinx.android.synthetic.main.item_restaurant_list.view.*
 
 class RestaurantListAdapter(
-  private val restaurantFavouriteListener: RestaurantFavouriteListener,
-  viewModel: RestaurantListViewModel
+  private val viewModel: RestaurantListViewModel
 ) :
   ListAdapter<Restaurant, RestaurantListAdapter.RestaurantListViewHolder>(RestaurantItemDiffCallback()) {
 
@@ -51,9 +50,9 @@ class RestaurantListAdapter(
             return@setOnCheckedChangeListener
           }
           if (isChecked)
-            restaurantFavouriteListener.onAddedToFavorites(restaurant.name)
+            viewModel.addToFavorites(restaurant.name)
           else
-            restaurantFavouriteListener.onrRemovedFromFavorites(restaurant.name)
+            viewModel.removeFromFavorites(restaurant.name)
         }
       }
     }

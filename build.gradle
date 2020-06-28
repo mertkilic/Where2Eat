@@ -112,13 +112,14 @@ ext.deps = [
                              "androidx.test.espresso:espresso-idling-resource:$ver.espressoIdlingResource",
                              "androidx.test.espresso:espresso-contrib:$ver.espressoContrib",
                              "androidx.test:runner:$ver.testRunner",
+                             "androidx.arch.core:core-testing:2.1.0",
                              "androidx.test.ext:junit:$ver.extJunit"],
     // Testing
     junit                 : "junit:junit:$ver.junit",
     mockitoKotlin         : ["com.nhaarman:mockito-kotlin:$ver.mockitoKotlin",
                              "org.mockito:mockito-inline:$ver.mockitoInline"],
     okhttpIdling          : "com.jakewharton.espresso:okhttp3-idling-resource:$ver.okhttpIdling@aar",
-    coroutines_test       : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$ver.kotlinCoroutines",
+    coroutines_test       : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$ver.kotlinxCoroutines",
 
 
     // Networking
@@ -127,8 +128,8 @@ ext.deps = [
     retrofit              : ["com.squareup.retrofit2:retrofit:$ver.retrofit@jar",
                              "com.squareup.retrofit2:converter-moshi:$ver.retrofit"],
     moshi                 : "com.squareup.moshi:moshi:$ver.moshi",
-    kotlinCoroutines      : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$ver.kotlinCoroutines",
-    coroutinesAndroid     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$ver.kotlinCoroutines",
+    kotlinCoroutines      : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$ver.kotlinxCoroutines",
+    coroutinesAndroid     : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$ver.kotlinxCoroutines",
 
 
     // Dagger 2

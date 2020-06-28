@@ -12,4 +12,10 @@
   <string name="rating_average">Rating Average</string>
   <string name="newest">Newest</string>
   <string name="best_match">Best Match</string>
+
+  <!--Errors-->
+  <string name="error_generic">Something went wrong please try again</string>
+  <string name="error_internet">You should connected to internet for the first time</string>
+  <string name="error_database">Database failure</string>
+
 </resources>

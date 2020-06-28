@@ -7,7 +7,7 @@ import retrofit2.http.GET
 /**
  * Actual takeaway endpoints that go to network
  */
-internal interface TakeawayApi {
+interface TakeawayApi {
 
   @GET("restaurants")
   suspend fun getRestaurants(): RestaurantListResponse

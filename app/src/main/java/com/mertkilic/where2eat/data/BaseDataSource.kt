@@ -10,13 +10,13 @@ abstract class BaseDataSource {
       val response = call()
       Result.success(response)
     } catch (e: Exception) {
-      error(e.message ?: e.toString())
+      error(e)
     }
   }
 
-  private fun <T> error(errorMessage: String): Result<T> {
+  private fun <T> error(e: Exception): Result<T> {
     return Result.error(
-      "This will be replaced with presentable error: $errorMessage"
+      ErrorHandler.handleError(e)
     )
   }
 

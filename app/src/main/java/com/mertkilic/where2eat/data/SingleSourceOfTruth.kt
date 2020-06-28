@@ -29,7 +29,7 @@ fun <T, A> resultLiveData(
     if (responseStatus.status == Result.Status.SUCCESS) {
       saveCallResult(responseStatus.data!!)
     } else if (responseStatus.status == Result.Status.ERROR) {
-      emit(Result.error<T>(responseStatus.message!!))
+      emit(Result.error<T>(responseStatus.errorStringId!!))
       emitSource(source)
     }
   }

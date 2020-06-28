@@ -1,13 +1,13 @@
 package com.mertkilic.where2eat.features.restaurantlist.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.view.forEach
 import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.mertkilic.where2eat.R
 import com.mertkilic.where2eat.base.BaseActivity
 import com.mertkilic.where2eat.data.Result
@@ -16,7 +16,7 @@ import com.mertkilic.where2eat.features.restaurantlist.data.Restaurant
 import com.mertkilic.where2eat.uitoolbox.DebouncingQueryTextListener
 import javax.inject.Inject
 
-class RestaurantListActivity : BaseActivity(), RestaurantFavouriteListener {
+class RestaurantListActivity : BaseActivity() {
 
   @Inject
   lateinit var viewModel: RestaurantListViewModel
@@ -31,7 +31,10 @@ class RestaurantListActivity : BaseActivity(), RestaurantFavouriteListener {
         binding.swipeRefreshLayout.isRefreshing = false
         adapter.submitList(result.data)
       }
-      Result.Status.ERROR -> Log.d("ERROR", "ERROR")//TODO show snack bar error message
+      Result.Status.ERROR -> {
+        binding.swipeRefreshLayout.isRefreshing = false
+        showErrorMessage(getString(result.errorStringId!!))
+      }
     }
   }
 
@@ -68,12 +71,39 @@ class RestaurantListActivity : BaseActivity(), RestaurantFavouriteListener {
     return super.onOptionsItemSelected(item)
   }
 
-  private fun initRestaurantList(){
-    adapter = RestaurantListAdapter(this, viewModel)
+  private fun initRestaurantList() {
+    adapter = RestaurantListAdapter(viewModel)
+    adapter.registerAdapterDataObserver(
+      object : RecyclerView.AdapterDataObserver() {
+        override fun onItemRangeMoved(fromPosition: Int, toPosition: Int, itemCount: Int) {
+          scrollToTop()
+        }
+
+        override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
+          scrollToTop()
+        }
+
+        override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+          scrollToTop()
+        }
+
+        override fun onItemRangeChanged(positionStart: Int, itemCount: Int, payload: Any?) {
+          scrollToTop()
+        }
+      })
+
     binding.restaurantsRecyclerView.adapter = adapter
+    binding.swipeRefreshLayout.setOnRefreshListener {
+      val searchQuery = binding.restaurantSearchView.query
+      if (searchQuery.isNotBlank()) {
+        viewModel.searchRestaurants(searchQuery.toString()).observe(this, restaurantListObserver)
+      } else {
+        subscribeUI()
+      }
+    }
   }
 
-  private fun initSearchView(){
+  private fun initSearchView() {
     binding.restaurantSearchView.setOnQueryTextListener(DebouncingQueryTextListener(
       this@RestaurantListActivity.lifecycle
     ) { newText ->
@@ -88,14 +118,10 @@ class RestaurantListActivity : BaseActivity(), RestaurantFavouriteListener {
   }
 
   private fun subscribeUI() {
-    viewModel.restaurants.observe(this, restaurantListObserver)
+    viewModel.getRestaurants().observe(this, restaurantListObserver)
   }
 
-  override fun onAddedToFavorites(restaurantName: String) {
-    viewModel.addToFavorites(restaurantName)
-  }
-
-  override fun onrRemovedFromFavorites(restaurantName: String) {
-    viewModel.removeFromFavorites(restaurantName)
+  private fun scrollToTop() {
+    binding.restaurantsRecyclerView.scrollToPosition(0)
   }
 }

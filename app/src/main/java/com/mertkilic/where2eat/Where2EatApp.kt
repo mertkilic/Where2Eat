@@ -6,11 +6,11 @@ import dagger.android.support.DaggerApplication
 
 class Where2EatApp : DaggerApplication() {
 
-  open val applicationModule by lazy { ApplicationModule(this) }
+  val applicationModule by lazy { ApplicationModule(this) }
 
   override fun onCreate() {
     super.onCreate()
   }
 
-  override fun applicationInjector() = Dagger.INJECTOR.create(this).applicationComponent
+  override fun applicationInjector() = Dagger.create(this).applicationComponent
 }
