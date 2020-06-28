@@ -1,5 +1,7 @@
 package com.mertkilic.where2eat.data
 
+import androidx.annotation.StringRes
+
 /**
  * A generic class that holds a value with its status.
  * This is the recommended approach to deal with responses in MVVM from Google
@@ -7,7 +9,7 @@ package com.mertkilic.where2eat.data
  * in `ViewModel` wrapped with `LiveData<Result<T>>` to pass back the latest data
  * to the UI with its fetch status.
  * */
-data class Result<out T>(val status: Status, val data: T?, val message: String?) {
+data class Result<out T>(val status: Status, val data: T?, val errorStringId: Int?) {
 
   enum class Status {
     SUCCESS,
@@ -24,11 +26,11 @@ data class Result<out T>(val status: Status, val data: T?, val message: String?)
       )
     }
 
-    fun <T> error(message: String, data: T? = null): Result<T> {
+    fun <T> error(stringId: Int, data: T? = null): Result<T> {
       return Result(
         Status.ERROR,
         data,
-        message
+        stringId
       )
     }
 

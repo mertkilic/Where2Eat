@@ -56,7 +56,7 @@ class RestaurantListViewModel @Inject constructor(
     coroutineScope.launch {
       val result = repository.addToFavorites(restaurantName)
       if (result.status == Result.Status.ERROR) {
-        Log.d(TAG, result.message!!)
+        Log.d(TAG, "Add to favorites failed")
       }
     }
 

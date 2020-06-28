@@ -31,7 +31,7 @@ class RestaurantListActivity : BaseActivity(), RestaurantFavouriteListener {
         binding.swipeRefreshLayout.isRefreshing = false
         adapter.submitList(result.data)
       }
-      Result.Status.ERROR -> showErrorMessage(result.message!!)
+      Result.Status.ERROR -> showErrorMessage(getString(result.errorStringId!!))
     }
   }
 
@@ -68,12 +68,20 @@ class RestaurantListActivity : BaseActivity(), RestaurantFavouriteListener {
     return super.onOptionsItemSelected(item)
   }
 
-  private fun initRestaurantList(){
+  private fun initRestaurantList() {
     adapter = RestaurantListAdapter(this, viewModel)
     binding.restaurantsRecyclerView.adapter = adapter
+    binding.swipeRefreshLayout.setOnRefreshListener {
+      val searchQuery = binding.restaurantSearchView.query
+      if (searchQuery.isNotBlank()) {
+        viewModel.searchRestaurants(searchQuery.toString()).observe(this, restaurantListObserver)
+      } else {
+        subscribeUI()
+      }
+    }
   }
 
-  private fun initSearchView(){
+  private fun initSearchView() {
     binding.restaurantSearchView.setOnQueryTextListener(DebouncingQueryTextListener(
       this@RestaurantListActivity.lifecycle
     ) { newText ->
