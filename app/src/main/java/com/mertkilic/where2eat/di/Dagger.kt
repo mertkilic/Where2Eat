@@ -2,8 +2,7 @@ package com.mertkilic.where2eat.di
 
 import com.mertkilic.where2eat.Where2EatApp
 
-enum class Dagger {
-  INJECTOR;
+object Dagger {
 
   lateinit var applicationComponent: ApplicationComponent
 

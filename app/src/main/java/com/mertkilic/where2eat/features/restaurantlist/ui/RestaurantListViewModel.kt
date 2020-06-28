@@ -12,20 +12,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-const val TAG = "RestaurantListViewModel"
+private const val TAG = "RestaurantListViewModel"
 
 class RestaurantListViewModel @Inject constructor(
   private val repository: RestaurantListRepository,
   scope: CoroutineScope
 ) : BaseViewModel(scope) {
 
-  val restaurants by lazy {
+  fun getRestaurants() =
     resultLiveData(
       databaseQuery = { repository.observeRestaurantsFromDb() },
       networkCall = { repository.observeRestaurantsFromNetwork() },
       saveCallResult = { repository.saveRestaurants(it.restaurants) }
     ).distinctUntilChanged()
-  }
 
   val selectedSortType by lazy {
     repository.getSelectedSortType()

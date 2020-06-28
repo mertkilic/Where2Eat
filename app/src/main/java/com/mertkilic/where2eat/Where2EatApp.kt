@@ -12,5 +12,5 @@ class Where2EatApp : DaggerApplication() {
     super.onCreate()
   }
 
-  override fun applicationInjector() = Dagger.INJECTOR.create(this).applicationComponent
+  override fun applicationInjector() = Dagger.create(this).applicationComponent
 }
