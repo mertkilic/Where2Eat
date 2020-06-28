@@ -2,11 +2,13 @@ package com.mertkilic.where2eat.features.restaurantlist.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import com.mertkilic.where2eat.data.ErrorHandler
 import com.mertkilic.where2eat.data.Result
 import com.mertkilic.where2eat.features.restaurantlist.data.*
 import com.mertkilic.where2eat.utils.CoroutineTestRule
 import com.mertkilic.where2eat.utils.ModelTestFactory.restaurants
 import com.mertkilic.where2eat.utils.getOrAwaitValue
+import com.nhaarman.mockito_kotlin.MockitoKotlinException
 import com.nhaarman.mockito_kotlin.given
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineScope
@@ -79,8 +81,9 @@ class RestaurantListViewModelTest {
 
   @Test
   fun `restaurant search error`() {
+    val exception = MockitoKotlinException("", Throwable())
     val loadingState = Result.loading(null)
-    val errorResult = Result.error("something went wrong", null)
+    val errorResult = Result.error(ErrorHandler.handleError(exception), null)
 
     given(repository.searchRestaurants("sushi")).willReturn(MutableLiveData(errorResult))
 
