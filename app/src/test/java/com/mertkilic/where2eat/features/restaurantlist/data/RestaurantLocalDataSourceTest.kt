@@ -1,9 +1,13 @@
 package com.mertkilic.where2eat.features.restaurantlist.data
 
+import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.sqlite.db.SimpleSQLiteQuery
+import com.mertkilic.where2eat.R
 import com.mertkilic.where2eat.data.SharedPrefStorage
 import com.mertkilic.where2eat.data.Storage
+import com.mertkilic.where2eat.di.ApplicationComponent
+import com.mertkilic.where2eat.di.Dagger
 import com.mertkilic.where2eat.utils.CoroutineTestRule
 import com.mertkilic.where2eat.utils.ModelTestFactory.restaurants
 import com.nhaarman.mockito_kotlin.argumentCaptor
@@ -29,6 +33,8 @@ class RestaurantLocalDataSourceTest {
 
   private val dao = Mockito.mock(RestaurantDao::class.java)
   private val sharedPrefStorage = Mockito.mock(SharedPrefStorage::class.java)
+  private val appComponent = Mockito.mock(ApplicationComponent::class.java)
+  private val context = Mockito.mock(Context::class.java)
 
   private lateinit var restaurantLocalDataSource: RestaurantLocalDataSource
 
@@ -42,6 +48,10 @@ class RestaurantLocalDataSourceTest {
         "Popularity"
       )
     ).willReturn("Popularity")
+
+    Dagger.applicationComponent = appComponent
+    given(Dagger.applicationComponent.context()).willReturn(context)
+    given(context.getString(R.string.popularity)).willReturn("Popularity")
   }
 
   @Test

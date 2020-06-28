@@ -69,20 +69,4 @@ class RestaurantDaoTest {
       assertTrue(expectedEmptyList.isEmpty())
     }
   }
-
-/*  @ExperimentalCoroutinesApi
-  @Ignore
-  @Test
-  @Throws(Exception::class)
-  fun getRestaurantsSorted() {
-    runBlockingTest {
-      dao.insertOrUpdate(restaurantsMixed())
-    }
-    val querySortedByDistance = SimpleSQLiteQuery("SELECT * FROM restaurants ORDER BY isFavorite DESC, status ASC, distance ASC")
-
-    TestCoroutineScope().launch(Dispatchers.Main){
-      val restaurantsSorted = dao.getBySortingValue(querySortedByDistance)//.getOrAwaitValue()
-      Log.d("","")
-    }
-  }*/
 }
